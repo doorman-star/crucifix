@@ -14,7 +14,7 @@
 }
 
 body {
-  background: #040404;
+  background: #020202;
   color: #999;
   font-family: 'mono', monospace;
   font-size: 11px;
@@ -35,6 +35,14 @@ body {
   align-items: center;
   background: transparent;
   transition: all 0.35s ease;
+}
+
+#banner {
+  width: 360px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .shell:hover {
