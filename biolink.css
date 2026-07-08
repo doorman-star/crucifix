@@ -1,0 +1,236 @@
+@import url('https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Share+Tech+Mono&display=swap');
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+@font-face {
+  font-family: mono;
+  src: url(mono.ttf);
+}
+
+body {
+  background: #080808;
+  color: #999;
+  font-family: 'mono', monospace;
+  font-size: 11px;
+  letter-spacing: .08em;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.shell {
+  width: 400px;
+  padding: 20px;
+  border: 1px solid #2a2a2a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: transparent;
+  transition: all 0.35s ease;
+}
+
+.shell:hover {
+  border: 1px solid #7a7a7a
+}
+
+.sigil-row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 2px;
+}
+
+.sigil-line {
+  flex: 1;
+  height: 1px;
+  background: #3a3a3a;
+}
+
+.avatar-wrap {
+  width: 72px;
+  height: 72px;
+  margin: 18px 0 14px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid #333;
+  filter: grayscale(100%) brightness(.8) contrast(1.2);
+}
+
+.avatar-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.name {
+  font-family: mono;
+  font-size: 28px;
+  color: #c0c0c0;
+  font-weight: normal;
+  line-height: 1;
+  margin-bottom: 5px;
+}
+
+.sub {
+  font-size: 8px;
+  color: #555;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  margin-bottom: 22px;
+}
+
+.divider {
+  width: 100%;
+  border: none;
+  border-top: 1px solid #2a2a2a;
+  margin-bottom: 4px;
+}
+
+.links {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 4px 0;
+}
+
+.link-row {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  padding: 12px 4px;
+  border-bottom: 1px solid #1e1e1e;
+}
+
+.link-row:first-child {
+  border-top: 1px solid #1e1e1e;
+}
+
+.link-label {
+  font-size: 10px;
+  color: #b0b0b0;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.link-value {
+  justify-self: end;
+  font-size: 9px;
+  color: #666;
+  letter-spacing: .1em;
+}
+
+#discord {
+  transition: all 0.3s ease;
+}
+
+#discord:hover {
+  transform: scale(1.01);
+}
+
+#signal {
+  transition: all 0.3s ease;
+}
+
+#signal:hover {
+  transform: scale(1.01);
+}
+
+.links a {
+  text-decoration: none;
+}
+
+.bottom-row {
+  width: 100%;
+  border-top: 1px solid #2a2a2a;
+  margin-top: 18px;
+  padding-top: 12px;
+}
+
+.player {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.track-num {
+  width: 18px;
+  color: #fff;
+  font-size: 8px;
+  text-align: center;
+  user-select: none;
+}
+
+.scrub-wrap {
+  flex: 1;
+  height: 14px;
+  position: relative;
+  cursor: pointer;
+}
+
+.scrub-track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 1px;
+  background: #333;
+}
+
+.scrub-fill {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0%;
+  height: 1px;
+  background: #fff;
+}
+
+.scrub-thumb {
+  position: absolute;
+  top: 50%;
+  left: 0%;
+  transform: translate(-50%, -50%);
+  width: 5px;
+  height: 5px;
+  background: #fff;
+  display: none;
+}
+
+.scrub-wrap:hover .scrub-thumb {
+  display: block;
+}
+
+.time-display {
+  width: 34px;
+  color: #666;
+  font-size: 7px;
+  text-align: right;
+  user-select: none;
+}
+
+.ctrl-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-family: inherit;
+  font-size: 9px;
+  cursor: pointer;
+  padding: 0;
+  transition: .15s;
+}
+
+.ctrl-btn:hover {
+  color: #cc2222;
+}
