@@ -6,6 +6,59 @@
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 
+  function initThemeToggle() {
+    var root = document.documentElement;
+    var toggle = document.getElementById("themeToggle");
+    if (!toggle) return;
+
+    var storageKey = "maison_theme";
+    var saved = null;
+
+    try {
+      saved = localStorage.getItem(storageKey);
+    } catch (err) {
+      /* localStorage unavailable — ignore */
+    }
+
+    var metaThemeColor = document.querySelector('meta[name="theme-color"]');
+
+    function setTheme(theme) {
+      root.setAttribute("data-theme", theme);
+      try {
+        localStorage.setItem(storageKey, theme);
+      } catch (err) {
+        /* ignore */
+      }
+
+      if (metaThemeColor) {
+        metaThemeColor.setAttribute("content", theme === "light" ? "#e8e8e8" : "#050505");
+      }
+
+      var isLight = theme === "light";
+      toggle.setAttribute("aria-pressed", String(isLight));
+      toggle.setAttribute(
+        "aria-label",
+        isLight ? "Switch to dark mode" : "Switch to light mode"
+      );
+      toggle.textContent = isLight ? "☾" : "☀";
+    }
+
+    var prefersLight =
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: light)").matches;
+
+    if (saved === "light" || saved === "dark") {
+      setTheme(saved);
+    } else if (prefersLight) {
+      setTheme("light");
+    }
+
+    toggle.addEventListener("click", function () {
+      var current = root.getAttribute("data-theme") || "dark";
+      setTheme(current === "light" ? "dark" : "light");
+    });
+  }
+
 
   function initNightSky() {
     var pre = document.getElementById("ascii-sky");
@@ -132,6 +185,7 @@
 
 
 
+  initThemeToggle();
   initNightSky();
   initHitCounter();
   initTypewriter();
