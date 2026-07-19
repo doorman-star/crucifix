@@ -173,3 +173,119 @@
   initTypewriter();
 
 })();
+
+
+
+/* audio player */
+
+
+
+const audio = document.getElementById("audio");
+const playBtn = document.getElementById("playBtn");
+const scrubWrap = document.getElementById("scrubWrap");
+const scrubFill = document.getElementById("scrubFill");
+const scrubThumb = document.getElementById("scrubThumb");
+const timeDisplay = document.getElementById("timeDisplay");
+const volumeSlider = document.getElementById("volumeSlider");
+
+let playing = false;
+
+if (audio && volumeSlider) {
+  audio.volume = volumeSlider.value;
+  volumeSlider.addEventListener("input", () => {
+    audio.volume = volumeSlider.value;
+  });
+}
+
+function formatTime(seconds) {
+  const mins = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60);
+  return `${mins}:${secs.toString().padStart(2, "0")}`;
+}
+
+function updatePlayingState(isPlaying) {
+  playing = isPlaying;
+  playBtn.textContent = isPlaying ? "||" : "▶";
+}
+
+playBtn.addEventListener("click", () => {
+  if (playing) {
+    audio.pause();
+    updatePlayingState(false);
+  } else {
+    audio.muted = false;
+    audio.play()
+      .then(() => updatePlayingState(true))
+      .catch(() => updatePlayingState(false));
+  }
+});
+
+function attemptAutoplay() {
+  audio.muted = true;
+  audio.play()
+    .then(() => updatePlayingState(true))
+    .catch(() => {
+      const resumeAudio = () => {
+        audio.muted = false;
+        audio.play()
+          .then(() => updatePlayingState(true))
+          .catch(() => { });
+      };
+      document.addEventListener("click", resumeAudio, { once: true });
+      document.addEventListener("keydown", resumeAudio, { once: true });
+      document.addEventListener("scroll", resumeAudio, { once: true });
+      document.addEventListener("touchstart", resumeAudio, { once: true });
+    });
+}
+
+if (audio) {
+  attemptAutoplay();
+}
+
+function unmuteOnInteraction() {
+  audio.muted = false;
+}
+
+document.addEventListener("click", unmuteOnInteraction, { once: true });
+document.addEventListener("keydown", unmuteOnInteraction, { once: true });
+document.addEventListener("scroll", unmuteOnInteraction, { once: true });
+document.addEventListener("touchstart", unmuteOnInteraction, { once: true });
+
+audio.addEventListener("loadedmetadata", () => {
+});
+
+audio.addEventListener("timeupdate", () => {
+  if (!audio.duration) return;
+
+  const percent = (audio.currentTime / audio.duration) * 100;
+
+  scrubFill.style.width = percent + "%";
+  timeDisplay.textContent = formatTime(audio.currentTime);
+});
+
+audio.addEventListener("ended", () => {
+  playing = false;
+  playBtn.textContent = "▶";
+});
+
+scrubWrap.addEventListener("click", (e) => {
+  if (!audio.duration) return;
+
+  const rect = scrubWrap.getBoundingClientRect();
+  const percent = Math.max(
+    0,
+    Math.min(1, (e.clientX - rect.left) / rect.width)
+  );
+
+  audio.currentTime = percent * audio.duration;
+});
+
+scrubWrap.addEventListener("mousemove", (e) => {
+  const rect = scrubWrap.getBoundingClientRect();
+  const percent = Math.max(
+    0,
+    Math.min(1, (e.clientX - rect.left) / rect.width)
+  );
+
+  scrubThumb.style.left = percent * 100 + "%";
+});
