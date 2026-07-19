@@ -207,6 +207,10 @@ body::before {
   --tilt: -.5deg;
 }
 
+.tilt-f {
+  --tilt: .4deg;
+}
+
 .sigil {
   font-size: .88rem;
   font-weight: 400;
@@ -223,7 +227,7 @@ body::before {
 }
 
 #hero {
-  padding: 3.9rem 2rem;
+  padding: 1.9rem 2rem;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -397,6 +401,15 @@ body::before {
 
 #latest .caption {
   margin-top: .5rem;
+}
+
+.hero-note {
+  margin: .85rem 0 0;
+  color: var(--ink-dim);
+  font-size: .72rem;
+  line-height: 1.5;
+  text-align: center;
+  transition: color .25s ease;
 }
 
 .footer {

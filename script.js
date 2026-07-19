@@ -184,7 +184,6 @@
   }
 
 
-
   initThemeToggle();
   initNightSky();
   initHitCounter();
